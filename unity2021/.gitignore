@@ -1,0 +1,14 @@
+
+/_dist_/
+/Hotspot2D/Assets/TextMesh Pro/
+/Hotspot2D/Assets/TextMesh Pro.meta
+/Hotspot2D/Assets/Plugins/
+/Hotspot2D/Assets/Plugins.meta
+/Hotspot2D/Library/
+/Hotspot2D/obj/
+/Hotspot2D/Logs/
+/Hotspot2D/Temp/
+/Hotspot2D/UserSettings/
+/Hotspot2D/*.sln
+/Hotspot2D/*.csproj
+/Hotspot2D/.vsconfig
