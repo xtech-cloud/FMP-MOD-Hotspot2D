@@ -13,13 +13,16 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
     /// </summary>
     public class MyInstance : MyInstanceBase
     {
-
+        private MyConfig.Style style_ { get; set; }
         /// <summary>
         /// 应用样式
         /// </summary>
         /// <param name="_style">样式</param>
         public void ApplyStyle(MyConfig.Style _style)
         {
+            style_ = _style;
+            var layer = rootUI.transform.Find("LayerContainers/layer");
+            layer.gameObject.SetActive(false);
         }
 
         /// <summary>
@@ -27,12 +30,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         /// </summary>
         public void HandleCreated()
         {
-            rootUI.transform.Find("btnEcho").GetComponent<Button>().onClick.AddListener(() =>
-            {
-                var req =new HealthyEchoRequest();
-                req.Msg = "hello";
-                submitHealthyEcho(req);
-            });
+            createLayers();
         }
 
         /// <summary>
@@ -56,6 +54,22 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         public void HandleClosed()
         {
             rootUI.gameObject.SetActive(false);
+        }
+
+        private void createLayers()
+        {
+            var rLayer = rootUI.transform.Find("LayerContainers/layer");
+            foreach (var layer in style_.layers)
+            {
+                var layerClone = GameObject.Instantiate(rLayer.gameObject, rLayer.parent);
+                var imgLayer = layerClone.GetComponent<Image>();
+                loadSpriteFromTheme(layer.image, (_sprite) =>
+                {
+                    imgLayer.sprite = _sprite;
+                });
+                layerClone.SetActive(true);
+            }
+
         }
     }
 }

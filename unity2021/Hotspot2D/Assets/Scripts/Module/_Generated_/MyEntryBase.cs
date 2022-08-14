@@ -67,6 +67,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             }
 
             runtime_ = new MyRuntime();
+            runtime_.settings = settings_;
             runtime_.entry = this;
             runtime_.logger = _logger;
             runtime_.config = config_;
@@ -120,6 +121,10 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             foreach (var instance in config_.instances)
             {
                 runtime_.CreateInstance(instance.uid, instance.style);
+                if (instance.autoOpen.active)
+                {
+                    runtime_.OpenInstance(instance.uid, instance.autoOpen.source, instance.autoOpen.uri, instance.autoOpen.delay);
+                }
             }
         }
 
