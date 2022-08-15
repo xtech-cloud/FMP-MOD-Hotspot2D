@@ -33,7 +33,36 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         protected LibMVCS.Logger logger_;
         protected Dictionary<string, LibMVCS.Any> settings_;
         protected MyRuntime runtime_ { get; set; }
+        protected DummyView viewDummy_ { get; set; }
+        protected DummyModel modelDummy_ { get; set; }
 
+        public Options NewOptions()
+        {
+            return new Options();
+        }
+
+        /// <summary>
+        /// 注册虚拟视图和数据
+        /// </summary>
+        public void RegisterDummy()
+        {
+            viewDummy_ = new DummyView(DummyView.NAME);
+            framework_.getStaticPipe().RegisterView(viewDummy_);
+            viewDummy_.runtime = runtime_;
+
+            modelDummy_ = new DummyModel(DummyModel.NAME);
+            framework_.getStaticPipe().RegisterModel(modelDummy_);
+            modelDummy_.runtime = runtime_;
+        }
+
+        /// <summary>
+        /// 注销虚拟视图和数据
+        /// </summary>
+        public void CancelDummy()
+        {
+            framework_.getStaticPipe().CancelView(viewDummy_);
+            framework_.getStaticPipe().CancelModel(modelDummy_);
+        }
 
         /// <summary>
         /// 手动注入
@@ -76,6 +105,29 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
 
         public virtual void Preload()
         {
+            mono_.StartCoroutine(loadUAB("file", (_root) =>
+            {
+                processRoot(_root);
+                foreach (var subject in config_.preload.subjects)
+                {
+                    var data = new Dictionary<string, object>();
+                    foreach (var parameter in subject.parameters)
+                    {
+                        if (parameter.type.Equals("string"))
+                            data[parameter.key] = parameter.value;
+                        else if (parameter.type.Equals("int"))
+                            data[parameter.key] = int.Parse(parameter.value);
+                        else if (parameter.type.Equals("float"))
+                            data[parameter.key] = float.Parse(parameter.value);
+                        else if (parameter.type.Equals("bool"))
+                            data[parameter.key] = bool.Parse(parameter.value);
+                    }
+                    modelDummy_.Publish(subject.message, data);
+                }
+            }, (_err) =>
+             {
+                 logger_.Error(_err.getMessage());
+             }));
         }
 
 
@@ -121,10 +173,6 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             foreach (var instance in config_.instances)
             {
                 runtime_.CreateInstance(instance.uid, instance.style);
-                if (instance.autoOpen.active)
-                {
-                    runtime_.OpenInstance(instance.uid, instance.autoOpen.source, instance.autoOpen.uri, instance.autoOpen.delay);
-                }
             }
         }
 
@@ -170,7 +218,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
 
             // 拼接出uab的绝对路径
             string uabpath = Path.Combine(datapath.AsString(), vendor.AsString());
-            uabpath = Path.Combine(uabpath, string.Format("uab/module.{0}.uab", MyEntryBase.ModuleName));
+            uabpath = Path.Combine(uabpath, string.Format("uabs/{0}.uab", MyEntryBase.ModuleName));
             logger_.Debug("ready to load {0}", uabpath);
 
             // 从文件异步加载uab

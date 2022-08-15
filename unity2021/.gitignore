@@ -1,5 +1,5 @@
-
 /_dist_/
+/_build_/
 /Hotspot2D/Assets/TextMesh Pro/
 /Hotspot2D/Assets/TextMesh Pro.meta
 /Hotspot2D/Assets/Plugins/
@@ -12,3 +12,4 @@
 /Hotspot2D/*.sln
 /Hotspot2D/*.csproj
 /Hotspot2D/.vsconfig
+.UNITY_HOME.env
