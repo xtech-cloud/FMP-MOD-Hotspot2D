@@ -27,16 +27,34 @@
 			-->
 			<Hotspots>
 				<Hotspot image="Hotspot#default.png" x="0" y="0">
-					<Subjects>
-						<Subject message="/XTC/Image3DAsset/Open">
+					<OnSubjects>
+						<Subject message="/XTC/ImageAtlas3D/Open">
 							<Parameters>
 								<Parameter key="uid" value="default" type="string"/>
-								<Parameter key="source" value="" type="string"/>
-								<Parameter key="uri" value="tech.meex.红色遗迹/秉彝亭" type="string"/>
+								<Parameter key="source" value="file://assloud" type="string"/>
+								<Parameter key="uri" value="tech.meex.展馆测试/_assets/tech.meex.展馆测试_展馆1.ai3" type="string"/>
 								<Parameter key="delay" value="0" type="float"/>
 							</Parameters>
 						</Subject>
-					</Subjects>
+						<Subject message="/XTC/Hotspot2D/Forward">
+							<Parameters>
+								<Parameter key="uid" value="XTC_Hotspot2D" type="string"/>
+							</Parameters>
+						</Subject>
+					</OnSubjects>
+					<OffSubjects>
+						<Subject message="/XTC/ImageAtlas3D/Close">
+							<Parameters>
+								<Parameter key="uid" value="default" type="string"/>
+								<Parameter key="delay" value="0" type="float"/>
+							</Parameters>
+						</Subject>
+						<Subject message="/XTC/Hotspot2D/Back">
+							<Parameters>
+								<Parameter key="uid" value="XTC_Hotspot2D" type="string"/>
+							</Parameters>
+						</Subject>
+					</OffSubjects>
 				</Hotspot>
 				<Hotspot image="Hotspot#default.png" x="-200" y="-200">
 
@@ -54,6 +72,7 @@
 
 				</Hotspot>
 			</Hotspots>
+			<Board buttonBackIcon="Back#default.png"/>
 		</Style>
 	</Styles>
 	<!-- 预创建的实例列表

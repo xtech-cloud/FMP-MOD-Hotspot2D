@@ -16,6 +16,8 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
     /// </summary>
     public class MyInstance : MyInstanceBase
     {
+        private MyConfig.Hotspot activeHotspot_;
+
         public MyInstance(string _uid, string _style, MyConfig _config, LibMVCS.Logger _logger, Dictionary<string, Any> _settings, MyEntryBase _entry, MonoBehaviour _mono, GameObject _rootAttachments)
             : base(_uid, _style, _config, _logger, _settings, _entry, _mono, _rootAttachments)
         {
@@ -27,10 +29,17 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         /// <param name="_style">样式</param>
         public void ApplyStyle()
         {
-            var layer = rootUI.transform.Find("LayerContainers/layer");
+            var layer = rootUI.transform.Find("Home/LayerContainers/layer");
             layer.gameObject.SetActive(false);
-            var hotspot = rootUI.transform.Find("hotspot");
+            var hotspot = rootUI.transform.Find("Home/hotspot");
             hotspot.gameObject.SetActive(false);
+            var btnBack = rootUI.transform.Find("Board/btnBack");
+            loadSpriteFromTheme(style_.board.buttonBackIcon, (_sprite) =>
+            {
+                var img = btnBack.GetComponent<Image>();
+                img.sprite = _sprite;
+                img.SetNativeSize();
+            });
         }
 
         /// <summary>
@@ -39,6 +48,16 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         public void HandleCreated()
         {
             createLayers();
+            var btnBack = rootUI.transform.Find("Board/btnBack").GetComponent<Button>();
+            btnBack.onClick.RemoveAllListeners();
+            btnBack.onClick.AddListener(() =>
+            {
+                logger_.Debug("hotspot off");
+                foreach (var subject in activeHotspot_.offSubjects)
+                {
+                    publishSubject(subject);
+                }
+            });
         }
 
         /// <summary>
@@ -68,12 +87,12 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         {
             var statusUID = ContentModel.NAME + "." + uid + ".Status";
             var status = _status.Access(statusUID) as ContentModel.ContentStatus;
-            if(null == status)
+            if (null == status)
             {
                 logger_.Error("status: {0} not found", statusUID);
             }
 
-            var goHotspot = rootUI.transform.Find("hotspot").gameObject;
+            var goHotspot = rootUI.transform.Find("Home/hotspot").gameObject;
             foreach (var hotspot in style_.hotspots)
             {
                 var clone = GameObject.Instantiate(goHotspot, goHotspot.transform.parent);
@@ -86,12 +105,33 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                     imgHotspot.sprite = _sprite;
                 });
                 imgHotspot.SetNativeSize();
+
+                var subjects = hotspot.onSubjects;
+                clone.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    activeHotspot_ = hotspot;
+                    logger_.Debug("hotspot on");
+                    foreach (var subject in subjects)
+                    {
+                        publishSubject(subject);
+                    }
+                });
             }
+        }
+
+        public void Forward()
+        {
+            rootUI.transform.Find("Home").gameObject.SetActive(false);
+        }
+
+        public void Back()
+        {
+            rootUI.transform.Find("Home").gameObject.SetActive(true);
         }
 
         private void createLayers()
         {
-            var rLayer = rootUI.transform.Find("LayerContainers/layer");
+            var rLayer = rootUI.transform.Find("Home/LayerContainers/layer");
             foreach (var layer in style_.layers)
             {
                 var layerClone = GameObject.Instantiate(rLayer.gameObject, rLayer.parent);
@@ -102,6 +142,24 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                 });
                 layerClone.SetActive(true);
             }
+        }
+
+        private void publishSubject(MyConfig.Subject _subject)
+        {
+            var dummyModel = (entry_ as MyEntry).getDummyModel();
+            var data = new Dictionary<string, object>();
+            foreach (var parameter in _subject.parameters)
+            {
+                if (parameter.type.Equals("string"))
+                    data[parameter.key] = parameter.value;
+                else if (parameter.type.Equals("int"))
+                    data[parameter.key] = int.Parse(parameter.value);
+                else if (parameter.type.Equals("float"))
+                    data[parameter.key] = float.Parse(parameter.value);
+                else if (parameter.type.Equals("bool"))
+                    data[parameter.key] = bool.Parse(parameter.value);
+            }
+            dummyModel.Publish(_subject.message, data);
         }
     }
 }
