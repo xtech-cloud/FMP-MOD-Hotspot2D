@@ -18,6 +18,10 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         public void __DebugPreload(GameObject _exportRoot)
         {
             processRoot(_exportRoot);
+            createInstances(() =>
+            {
+                publishPreloadSubjects();
+            });
         }
 
         /// <summary>

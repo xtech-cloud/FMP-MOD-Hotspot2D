@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "fmp-xtc-hotspot2d-service-grpc": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:51954;http://localhost:51955"
+    }
+  }
+}

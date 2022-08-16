@@ -12,6 +12,9 @@
     <Reference Include="fmp-lib-mvcs">
       <HintPath>{{WORK_DIR}}\Hotspot2D\Assets\3rd\fmp-lib-mvcs-1.6.0\fmp-lib-mvcs.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>{{WORK_DIR}}\Hotspot2D\Assets\3rd\fmp-dependency\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Protobuf">
       <HintPath>{{WORK_DIR}}\Hotspot2D\Assets\3rd\fmp-dependency\Google.Protobuf.dll</HintPath>
     </Reference>
@@ -45,9 +48,6 @@
     <Reference Include="fmp-xtc-Hotspot2D-lib-proto">
       <HintPath>{{WORK_DIR}}\Hotspot2D\Assets\3rd\fmp-xtc-hotspot2d\fmp-xtc-hotspot2d-lib-proto.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>{{WORK_DIR}}\Hotspot2D\Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>{{WORK_DIR}}\Hotspot2D\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -68,6 +68,18 @@
     </Reference>
     <Reference Include="UnityEngine.ImageConversionModule">
       <HintPath>{{UNITY_HOME}}\Editor\Data\Managed\UnityEngine\UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="fmp-xtc-assloud-lib-proto">
+      <HintPath>{{WORK_DIR}}\Hotspot2D\Assets\3rd\fmp-xtc-assloud\fmp-xtc-assloud-lib-proto.dll</HintPath>
+    </Reference>
+    <Reference Include="fmp-xtc-assloud-lib-mvcs">
+      <HintPath>{{WORK_DIR}}\Hotspot2D\Assets\3rd\fmp-xtc-assloud\fmp-xtc-assloud-lib-mvcs.dll</HintPath>
+    </Reference>
+    <Reference Include="fmp-xtc-assloud-lib-bridge">
+      <HintPath>{{WORK_DIR}}\Hotspot2D\Assets\3rd\fmp-xtc-assloud\fmp-xtc-assloud-lib-bridge.dll</HintPath>
+    </Reference>
+    <Reference Include="XTC.FMP.MOD.Assloud.LIB.Unity">
+      <HintPath>{{WORK_DIR}}\Hotspot2D\Assets\3rd\fmp-xtc-assloud\XTC.FMP.MOD.Assloud.LIB.Unity.dll</HintPath>
     </Reference>
   </ItemGroup>
 

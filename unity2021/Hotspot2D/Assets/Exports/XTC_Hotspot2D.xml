@@ -14,9 +14,46 @@
     -->
 	<Styles>
 		<Style name="default">
+			<!-- 图层
+			  image: 位于themes/XTC_Hotspot2D路径的图片
+			-->
 			<Layers>
-				<Layer image="layer0#default.jpg"/>
+				<Layer image="Layer0#default.jpg"/>
 			</Layers>
+			<!-- 热点
+			  image: 位于themes/XTC_Hotspot2D路径的图片
+			  x: 横坐标，屏幕中为0，左方为负数，右方为正
+			  y: 纵坐标，屏幕中为0，下方为负数，上方为正
+			-->
+			<Hotspots>
+				<Hotspot image="Hotspot#default.png" x="0" y="0">
+					<Subjects>
+						<Subject message="/XTC/Image3DAsset/Open">
+							<Parameters>
+								<Parameter key="uid" value="default" type="string"/>
+								<Parameter key="source" value="" type="string"/>
+								<Parameter key="uri" value="tech.meex.红色遗迹/秉彝亭" type="string"/>
+								<Parameter key="delay" value="0" type="float"/>
+							</Parameters>
+						</Subject>
+					</Subjects>
+				</Hotspot>
+				<Hotspot image="Hotspot#default.png" x="-200" y="-200">
+
+				</Hotspot>
+				<Hotspot image="Hotspot#default.png" x="-200" y="200">
+
+				</Hotspot>
+				<Hotspot image="Hotspot#default.png" x="200" y="-200">
+
+				</Hotspot>
+				<Hotspot image="Hotspot#default.png" x="200" y="200">
+
+				</Hotspot>
+				<Hotspot image="AerialPhoto#default.png" x="0" y="-500">
+
+				</Hotspot>
+			</Hotspots>
 		</Style>
 	</Styles>
 	<!-- 预创建的实例列表
@@ -24,7 +61,8 @@
       style: 使用的样式名
     -->
 	<Instances>
-		<Instance uid="default" style="default"/>
+		<!-- 此实例和Assloud中的XTC_Hotspot2D关联-->
+		<Instance uid="XTC_Hotspot2D" style="default"/>
 	</Instances>
 	<!-- 预加载 -->
 	<Preload>
@@ -37,7 +75,7 @@
 		<Subjects>
 			<Subject message="/XTC/Hotspot2D/Open">
 				<Parameters>
-					<Parameter key="uid" value="default" type="string"/>
+					<Parameter key="uid" value="XTC_Hotspot2D" type="string"/>
 					<Parameter key="source" value="" type="string"/>
 					<Parameter key="uri" value="" type="string"/>
 					<Parameter key="delay" value="0" type="float"/>
