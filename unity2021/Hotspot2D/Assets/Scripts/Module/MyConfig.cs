@@ -10,8 +10,8 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
     {
         public class Board
         {
-            [XmlAttribute("buttonBackIcon")]
-            public string buttonBackIcon { get; set; } = "";
+            [XmlElement("BackButton")]
+            public UiElement backButton { get; set; } = new UiElement();
         }
 
         public class Layer
@@ -20,16 +20,11 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             public string image { get; set; } = "";
         }
 
-        public class Hotspot
+        public class Hotspot : UiElement
         {
-            [XmlAttribute("image")]
-            public string image { get; set; } = "";
-            [XmlAttribute("x")]
-            public float x { get; set; } = 0f; 
-            [XmlAttribute("y")]
-            public float y { get; set; } = 0f;
             [XmlArray("OnSubjects"), XmlArrayItem("Subject")]
             public Subject[] onSubjects { get; set; } = new Subject[0];
+
             [XmlArray("OffSubjects"), XmlArrayItem("Subject")]
             public Subject[] offSubjects { get; set; } = new Subject[0];
 

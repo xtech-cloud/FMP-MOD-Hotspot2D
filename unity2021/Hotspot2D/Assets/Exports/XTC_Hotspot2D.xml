@@ -26,7 +26,8 @@
 			  y: 纵坐标，屏幕中为0，下方为负数，上方为正
 			-->
 			<Hotspots>
-				<Hotspot image="Hotspot#default.png" x="0" y="0">
+				<Hotspot image="Hotspot#default.png">
+				  <Anchor marginH="0" marginV="0" width="144" height="144"/>
 					<OnSubjects>
 						<Subject message="/XTC/ImageAtlas3D/Open">
 							<Parameters>
@@ -56,23 +57,27 @@
 						</Subject>
 					</OffSubjects>
 				</Hotspot>
-				<Hotspot image="Hotspot#default.png" x="-200" y="-200">
-
+				<Hotspot image="Hotspot#default.png">
+				  <Anchor marginH="-200" marginV="-200" width="144" height="144"/>
 				</Hotspot>
-				<Hotspot image="Hotspot#default.png" x="-200" y="200">
-
+				<Hotspot image="Hotspot#default.png">
+				  <Anchor marginH="-200" marginV="200" width="144" height="144"/>
 				</Hotspot>
-				<Hotspot image="Hotspot#default.png" x="200" y="-200">
-
+				<Hotspot image="Hotspot#default.png">
+				  <Anchor marginH="200" marginV="-200" width="144" height="144"/>
 				</Hotspot>
-				<Hotspot image="Hotspot#default.png" x="200" y="200">
-
+				<Hotspot image="Hotspot#default.png">
+				  <Anchor marginH="200" marginV="200" width="144" height="144"/>
 				</Hotspot>
 				<Hotspot image="AerialPhoto#default.png" x="0" y="-500">
-
+				  <Anchor horizontal="center" vertical="bottom" marginH="0" marginV="32" width="178" height="72"/>
 				</Hotspot>
 			</Hotspots>
-			<Board buttonBackIcon="Back#default.png"/>
+			<Board>
+				<BackButton image="Back#default.png">
+				  <Anchor horizontal="left" vertical="top" marginH="32" marginV="32" width="152" height="72"/>
+        </BackButton> 
+      </Board>
 		</Style>
 	</Styles>
 	<!-- 预创建的实例列表

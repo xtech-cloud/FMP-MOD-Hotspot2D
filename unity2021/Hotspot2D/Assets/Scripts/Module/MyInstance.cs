@@ -34,11 +34,11 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             var hotspot = rootUI.transform.Find("Home/hotspot");
             hotspot.gameObject.SetActive(false);
             var btnBack = rootUI.transform.Find("Board/btnBack");
-            loadSpriteFromTheme(style_.board.buttonBackIcon, (_sprite) =>
+            alignByAncor(btnBack, style_.board.backButton.anchor);
+            loadSpriteFromTheme(style_.board.backButton.image, (_sprite) =>
             {
                 var img = btnBack.GetComponent<Image>();
                 img.sprite = _sprite;
-                img.SetNativeSize();
             });
         }
 
@@ -97,14 +97,12 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             {
                 var clone = GameObject.Instantiate(goHotspot, goHotspot.transform.parent);
                 clone.SetActive(true);
-                var rt = clone.GetComponent<RectTransform>();
-                rt.anchoredPosition = new Vector2(hotspot.x, hotspot.y);
+                alignByAncor(clone.transform, hotspot.anchor);
                 var imgHotspot = clone.GetComponent<Image>();
                 loadSpriteFromTheme(hotspot.image, (_sprite) =>
                 {
                     imgHotspot.sprite = _sprite;
                 });
-                imgHotspot.SetNativeSize();
 
                 var subjects = hotspot.onSubjects;
                 clone.GetComponent<Button>().onClick.AddListener(() =>
