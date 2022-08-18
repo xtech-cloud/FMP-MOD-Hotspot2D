@@ -7,7 +7,6 @@ using XTC.FMP.MOD.Hotspot2D.LIB.Proto;
 using XTC.FMP.MOD.Hotspot2D.LIB.MVCS;
 using XTC.FMP.LIB.MVCS;
 using System.Collections.Generic;
-using XTC.FMP.MOD.Assloud.LIB.MVCS;
 
 namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
 {
@@ -48,6 +47,8 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         public void HandleCreated()
         {
             createLayers();
+            createHotspots();
+
             var btnBack = rootUI.transform.Find("Board/btnBack").GetComponent<Button>();
             btnBack.onClick.RemoveAllListeners();
             btnBack.onClick.AddListener(() =>
@@ -83,15 +84,8 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             rootUI.gameObject.SetActive(false);
         }
 
-        public void SlotRefreshHotspots(Model.Status _status, object _data)
+        public void createHotspots()
         {
-            var statusUID = ContentModel.NAME + "." + uid + ".Status";
-            var status = _status.Access(statusUID) as ContentModel.ContentStatus;
-            if (null == status)
-            {
-                logger_.Error("status: {0} not found", statusUID);
-            }
-
             var goHotspot = rootUI.transform.Find("Home/hotspot").gameObject;
             foreach (var hotspot in style_.hotspots)
             {

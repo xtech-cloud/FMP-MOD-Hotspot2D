@@ -1,8 +1,6 @@
 
 using System.IO;
 using UnityEngine;
-using LibAssloud =  XTC.FMP.MOD.Assloud.LIB.Unity;
-using LibHotspot2D =  XTC.FMP.MOD.Hotspot2D.LIB.Unity;
 
 /// <summary>
 /// 根程序类
@@ -12,35 +10,6 @@ using LibHotspot2D =  XTC.FMP.MOD.Hotspot2D.LIB.Unity;
 /// </remarks>
 public class Root : RootBase
 {
-    protected LibAssloud.MyEntry entryAssloud_ { get; set; } = new LibAssloud.MyEntry();
-    protected override void doAwake()
-    {
-        setupSettings();
-
-        string xml = File.ReadAllText(UnityEngine.Application.dataPath + string.Format("/Exports/{0}.xml", LibHotspot2D.MyEntryBase.ModuleName));
-        config_.MergeKV(LibHotspot2D.MyEntryBase.ModuleName, xml);
-        string xmlAssloud = File.ReadAllText(UnityEngine.Application.persistentDataPath + string.Format("/data/configs/{0}.xml", LibAssloud.MyEntryBase.ModuleName));
-        config_.MergeKV(LibAssloud.MyEntryBase.ModuleName, xmlAssloud);
-
-        initFramework();
-
-        entry_ = new LibHotspot2D.DebugEntry();
-        var options = entry_.NewOptions();
-        entry_.Inject(framework_, options);
-        entry_.UniInject(this, options, logger_, config_, settings_);
-        framework_.setUserData("XTC.FMP.MOD.Hotspot2D.LIB.MVCS.Entry", entry_);
-        entry_.RegisterDummy();
-
-        entryAssloud_ = new LibAssloud.MyEntry();
-        var optionsAssloud = entryAssloud_.NewOptions();
-        entryAssloud_.Inject(framework_, optionsAssloud);
-        entryAssloud_.UniInject(this, optionsAssloud, logger_, config_, settings_);
-        framework_.setUserData("XTC.FMP.MOD.Assloud.LIB.MVCS.Entry", entryAssloud_);
-        entryAssloud_.RegisterDummy();
-
-        setupFramework();
-    }
-
     private void Awake()
     {
         doAwake();
@@ -48,7 +17,6 @@ public class Root : RootBase
 
     private void Start()
     {
-        entryAssloud_.Preload();
         entry_.__DebugPreload(exportRoot);
     }
 
