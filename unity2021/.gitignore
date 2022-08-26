@@ -12,4 +12,5 @@
 /Hotspot2D/*.sln
 /Hotspot2D/*.csproj
 /Hotspot2D/.vsconfig
+/Hotspot2D/.vs/
 .UNITY_HOME.env

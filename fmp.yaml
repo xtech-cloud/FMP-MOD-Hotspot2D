@@ -10,4 +10,4 @@ publish:
   org_name: XTC
   module_name: Hotspot2D
   environment: product
-  repository: grpc://localhost:18000
+  repository: grpc://localhost:28000

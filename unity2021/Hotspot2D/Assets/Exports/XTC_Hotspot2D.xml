@@ -18,7 +18,7 @@
 			  image: 位于themes/XTC_Hotspot2D路径的图片
 			-->
 			<Layers>
-				<Layer image="Layer0#default.jpg"/>
+				<Layer image="Layer0_default.jpg"/>
 			</Layers>
 			<!-- 热点
 			  image: 位于themes/XTC_Hotspot2D路径的图片
@@ -26,7 +26,7 @@
 			  y: 纵坐标，屏幕中为0，下方为负数，上方为正
 			-->
 			<Hotspots>
-				<Hotspot image="Hotspot#default.png">
+				<Hotspot image="Hotspot_default.png">
 				  <Anchor marginH="0" marginV="0" width="144" height="144"/>
 					<OnSubjects>
 						<Subject message="/XTC/ImageAtlas3D/Open">
@@ -57,24 +57,24 @@
 						</Subject>
 					</OffSubjects>
 				</Hotspot>
-				<Hotspot image="Hotspot#default.png">
+				<Hotspot image="Hotspot_default.png">
 				  <Anchor marginH="-200" marginV="-200" width="144" height="144"/>
 				</Hotspot>
-				<Hotspot image="Hotspot#default.png">
+				<Hotspot image="Hotspot_default.png">
 				  <Anchor marginH="-200" marginV="200" width="144" height="144"/>
 				</Hotspot>
-				<Hotspot image="Hotspot#default.png">
+				<Hotspot image="Hotspot_default.png">
 				  <Anchor marginH="200" marginV="-200" width="144" height="144"/>
 				</Hotspot>
-				<Hotspot image="Hotspot#default.png">
+				<Hotspot image="Hotspot_default.png">
 				  <Anchor marginH="200" marginV="200" width="144" height="144"/>
 				</Hotspot>
-				<Hotspot image="AerialPhoto#default.png" x="0" y="-500">
+				<Hotspot image="AerialPhoto_default.png" x="0" y="-500">
 				  <Anchor horizontal="center" vertical="bottom" marginH="0" marginV="32" width="178" height="72"/>
 				</Hotspot>
 			</Hotspots>
 			<Board>
-				<BackButton image="Back#default.png">
+				<BackButton image="Back_default.png">
 				  <Anchor horizontal="left" vertical="top" marginH="32" marginV="32" width="152" height="72"/>
         </BackButton> 
       </Board>
