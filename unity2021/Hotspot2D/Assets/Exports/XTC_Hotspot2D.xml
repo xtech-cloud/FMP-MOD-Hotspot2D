@@ -74,12 +74,12 @@
         <!-- 关闭按钮
         -->
         <CloseButton image="InfoBox_Close_default.png">
-          <Anchor marginH="-100" marginV="-100" width="180" height="36"/>
+          <Anchor marginH="100" marginV="-100" width="180" height="36"/>
         </CloseButton>
         <!-- 打开按钮
         -->
         <OpenButton image="InfoBox_Open_default.png">
-          <Anchor marginH="100" marginV="-100" width="180" height="36"/>
+          <Anchor marginH="-100" marginV="-100" width="180" height="36"/>
         </OpenButton>
       </InfoBox>
     </Style>

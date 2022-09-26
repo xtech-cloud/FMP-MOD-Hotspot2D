@@ -63,6 +63,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             });
             ui_.infoBox.openButton = rootUI.transform.Find("Home/InfoBox/OpenButton").gameObject;
             ui_.infoBox.closeButton = rootUI.transform.Find("Home/InfoBox/CloseButton").gameObject;
+            ui_.infoBox.closeButton.SetActive(true);
             ui_.infoBox.text = rootUI.transform.Find("Home/InfoBox/ScrollView/Viewport/Content/text").GetComponent<Text>();
             ui_.infoBox.title = rootUI.transform.Find("Home/InfoBox/title").GetComponent<Text>();
 
