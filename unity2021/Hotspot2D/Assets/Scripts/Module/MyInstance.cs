@@ -153,7 +153,6 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                     activeContent_ = null;
                     if (style_.infoBox.active)
                     {
-                        ui_.infoBox.closeButton.SetActive(false);
                         ui_.infoBox.openButton.SetActive(false);
                         ui_.infoBox.text.text = "";
                         ui_.infoBox.title.text = "";
@@ -305,7 +304,6 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             }
             ui_.infoBox.text.text = text;
             ui_.infoBox.title.text = title;
-            ui_.infoBox.closeButton.SetActive(true);
             ui_.infoBox.openButton.SetActive(null != activeContent_);
         }
 
