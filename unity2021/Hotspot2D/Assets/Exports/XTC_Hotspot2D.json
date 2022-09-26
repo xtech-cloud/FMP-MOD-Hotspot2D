@@ -1,0 +1,40 @@
+{
+    "sectionS": [
+        {
+            "name": "三亚",
+            "path": "",
+            "instanceS": ["default"],
+            "contentS": [
+                "XTC.Hotspot2D/三亚"
+            ],
+            "kvS": {
+                "marginH": "-158",
+                "marginV": "-408"
+            }
+        },
+        {
+            "name": "琼海",
+            "path": "",
+            "instanceS": ["default"],
+            "contentS": [
+                "XTC.Hotspot2D/琼海"
+            ],
+            "kvS": {
+                "marginH": "307",
+                "marginV": "53"
+            }
+        },
+        {
+            "name": "昌江",
+            "path": "",
+            "instanceS": ["default"],
+            "contentS": [
+                "XTC.Hotspot2D/昌江"
+            ],
+            "kvS": {
+                "marginH": "-438",
+                "marginV": "42"
+            }
+        }
+    ]
+}

@@ -15,8 +15,8 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
     ///</remarks>
     public class MyRuntime : MyRuntimeBase
     {
-        public MyRuntime(MonoBehaviour _mono, MyConfig _config, Dictionary<string, Any> _settings, LibMVCS.Logger _logger, MyEntryBase _entry)
-            : base(_mono, _config, _settings, _logger, _entry)
+        public MyRuntime(MonoBehaviour _mono, MyConfig _config, MyCatalog _catalog, Dictionary<string, Any> _settings, LibMVCS.Logger _logger, MyEntryBase _entry)
+            : base(_mono, _config, _catalog, _settings, _logger, _entry)
         {
         }
     }

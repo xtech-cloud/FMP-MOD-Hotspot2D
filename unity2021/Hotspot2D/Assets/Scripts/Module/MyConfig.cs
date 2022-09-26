@@ -8,6 +8,18 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
     /// </summary>
     public class MyConfig : MyConfigBase
     {
+        public class InfoBox
+        {
+            [XmlAttribute("active")]
+            public bool active { get; set; } = false;
+            [XmlElement("Panel")]
+            public UiElement panel { get; set; } = new UiElement();
+            [XmlElement("CloseButton")]
+            public UiElement closeButton { get; set; } = new UiElement();
+            [XmlElement("OpenButton")]
+            public UiElement openButton { get; set; } = new UiElement();
+        }
+
         public class Board
         {
             [XmlElement("BackButton")]
@@ -22,12 +34,16 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
 
         public class Hotspot : UiElement
         {
+            /// <summary>
+            /// Content中键值对的键
+            /// </summary>
+            [XmlAttribute("key")]
+            public string key { get; set; } = "";
             [XmlArray("OnSubjects"), XmlArrayItem("Subject")]
             public Subject[] onSubjects { get; set; } = new Subject[0];
 
             [XmlArray("OffSubjects"), XmlArrayItem("Subject")]
             public Subject[] offSubjects { get; set; } = new Subject[0];
-
         }
 
         public class Style
@@ -38,9 +54,11 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             public Board board { get; set; } = new Board();
 
             [XmlArray("Layers"), XmlArrayItem("Layer")]
-            public Layer[] layers{ get; set; } = new Layer[0];
-            [XmlArray("Hotspots"), XmlArrayItem("Hotspot")]
-            public Hotspot[] hotspots { get; set; } = new Hotspot[0];
+            public Layer[] layers { get; set; } = new Layer[0];
+            [XmlElement("Hotspot")]
+            public Hotspot hotspot { get; set; } = new Hotspot();
+            [XmlElement("InfoBox")]
+            public InfoBox infoBox { get; set; } = new InfoBox();
         }
 
 
