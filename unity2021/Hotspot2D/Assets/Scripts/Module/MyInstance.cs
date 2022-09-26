@@ -280,7 +280,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                     var strValue = parameter.value;
                     foreach (var pair in _replaces)
                     {
-                        strValue.Replace(pair.Key, pair.Value);
+                        strValue = strValue.Replace(pair.Key, pair.Value);
                     }
                     data[parameter.key] = strValue;
                 }
