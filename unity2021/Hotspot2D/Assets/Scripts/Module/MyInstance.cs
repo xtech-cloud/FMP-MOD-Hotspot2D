@@ -9,6 +9,7 @@ using XTC.FMP.LIB.MVCS;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
 {
@@ -35,6 +36,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         private Ui ui_ = new Ui();
 
         private MyContent activeContent_;
+        private ContentReader contentReader_;
 
         public MyInstance(string _uid, string _style, MyConfig _config, MyCatalog _catalog, LibMVCS.Logger _logger, Dictionary<string, Any> _settings, MyEntryBase _entry, MonoBehaviour _mono, GameObject _rootAttachments)
             : base(_uid, _style, _config, _catalog, _logger, _settings, _entry, _mono, _rootAttachments)
@@ -46,6 +48,9 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         /// </summary>
         public void HandleCreated()
         {
+            contentReader_ = new ContentReader(contentObjectsPool);
+            contentReader_.AssetRootPath = settings_["path.assets"].AsString();
+
             // 初始化热点
             ui_.hotspot = rootUI.transform.Find("Home/HotspotContainers/hotspot").gameObject;
             ui_.hotspot.SetActive(false);
@@ -103,6 +108,8 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         /// </summary>
         public void HandleOpened(string _source, string _uri)
         {
+            contentReader_.ContentUri = _uri;
+
             rootUI.gameObject.SetActive(true);
         }
 
@@ -162,7 +169,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
 
                     // 读取 content
                     var firstSection = section.contentS.First();
-                    loadContentFromAsset(firstSection, (_text) =>
+                    contentReader_.LoadText(firstSection, (_text) =>
                     {
                         try
                         {
