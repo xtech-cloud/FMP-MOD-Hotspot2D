@@ -169,7 +169,8 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
 
                     // 读取 content
                     var firstSection = section.contentS.First();
-                    contentReader_.LoadText(firstSection, (_text) =>
+                    string metafile = Path.Combine(firstSection, "meta.json");
+                    contentReader_.LoadText(metafile, (_text) =>
                     {
                         try
                         {
