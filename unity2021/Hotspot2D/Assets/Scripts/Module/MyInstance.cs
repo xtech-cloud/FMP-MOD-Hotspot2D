@@ -93,6 +93,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                 if (null == mainFont)
                     return;
                 ui_.infoBox.text.font = mainFont;
+                ui_.infoBox.title.font = mainFont;
             }
         }
 
