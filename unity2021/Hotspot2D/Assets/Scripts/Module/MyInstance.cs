@@ -374,7 +374,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             }
 
             Dictionary<string, object> variableS = new Dictionary<string, object>();
-            variableS["{{uri}}"] = string.Format("{0}/_resources/{1}", activeContent_.foreign_bundle_uuid, strValue);
+            variableS["{{uri}}"] = string.Format("{0}/{1}", activeContent_.foreign_bundle_uuid, strValue);
             publishSubjects(style_.hotspot.onSubjects, variableS);
         }
 
