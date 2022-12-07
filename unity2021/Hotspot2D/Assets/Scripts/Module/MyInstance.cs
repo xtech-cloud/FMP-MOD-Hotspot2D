@@ -37,7 +37,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
     {
         private Ui ui_ = new Ui();
 
-        private MyContent activeContent_;
+        private ContentMetaSchema activeContent_;
         private ContentReader contentReader_;
 
         public MyInstance(string _uid, string _style, MyConfig _config, MyCatalog _catalog, LibMVCS.Logger _logger, Dictionary<string, Any> _settings, MyEntryBase _entry, MonoBehaviour _mono, GameObject _rootAttachments)
@@ -194,7 +194,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                     {
                         try
                         {
-                            activeContent_ = JsonConvert.DeserializeObject<MyContent>(System.Text.Encoding.UTF8.GetString(_text));
+                            activeContent_ = JsonConvert.DeserializeObject<ContentMetaSchema>(System.Text.Encoding.UTF8.GetString(_text));
                         }
                         catch (System.Exception ex)
                         {
@@ -359,7 +359,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(activeContent_.bundle))
+            if (string.IsNullOrWhiteSpace(activeContent_.foreign_bundle_uuid))
             {
                 logger_.Error("bundle is null or whitespace");
                 return;
@@ -374,7 +374,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             }
 
             Dictionary<string, object> variableS = new Dictionary<string, object>();
-            variableS["{{resource_uri}}"] = string.Format("{0}/_resources/{1}", activeContent_.bundle, strValue);
+            variableS["{{uri}}"] = string.Format("{0}/_resources/{1}", activeContent_.foreign_bundle_uuid, strValue);
             publishSubjects(style_.hotspot.onSubjects, variableS);
         }
 
