@@ -24,7 +24,9 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             public GameObject openButton;
         }
 
+        public ScrollRect mainLayer;
         public GameObject hotspot;
+        public GameObject board;
         public InfoBox infoBox = new InfoBox();
     }
 
@@ -50,9 +52,11 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         {
             contentReader_ = new ContentReader(contentObjectsPool);
             contentReader_.AssetRootPath = settings_["path.assets"].AsString();
+            ui_.board = rootUI.transform.Find("Board").gameObject;
 
+            ui_.mainLayer = rootUI.transform.Find("Home/ScrollView").GetComponent<ScrollRect>();
             // 初始化热点
-            ui_.hotspot = rootUI.transform.Find("Home/HotspotContainers/hotspot").gameObject;
+            ui_.hotspot = rootUI.transform.Find("Home/ScrollView/Viewport/mainLayer/hotspot").gameObject;
             ui_.hotspot.SetActive(false);
 
             // 初始化信息框
@@ -111,7 +115,22 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         {
             contentReader_.ContentUri = _uri;
 
+            ui_.board.SetActive(false);
             rootUI.gameObject.SetActive(true);
+
+            if (style_.mainLayer.horizontalAlign == "left")
+                ui_.mainLayer.horizontalNormalizedPosition = 0;
+            else if (style_.mainLayer.horizontalAlign == "right")
+                ui_.mainLayer.horizontalNormalizedPosition = 1;
+            else
+                ui_.mainLayer.horizontalNormalizedPosition = 0.5f;
+
+            if (style_.mainLayer.verticalAlign == "left")
+                ui_.mainLayer.verticalNormalizedPosition = 0;
+            else if (style_.mainLayer.verticalAlign == "right")
+                ui_.mainLayer.verticalNormalizedPosition = 1;
+            else
+                ui_.mainLayer.verticalNormalizedPosition = 0.5f;
         }
 
         /// <summary>
@@ -151,10 +170,10 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                 string strImage = "";
                 if (section.kvS.TryGetValue("image", out strImage))
                 {
-                    loadSpriteFromTheme(strImage, (_sprite) =>
+                    loadTextureFromTheme(strImage, (_texture) =>
                     {
-                        clone.GetComponent<Image>().sprite = _sprite;
-                    });
+                        clone.GetComponent<RawImage>().texture = _texture;
+                    }, () => { });
                 }
 
                 clone.GetComponent<Button>().onClick.AddListener(() =>
@@ -191,7 +210,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
 
                         logger_.Debug("hotspot on");
                         openResource();
-                    });
+                    }, () => { });
                 });
             }
         }
@@ -199,108 +218,97 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         public void Forward()
         {
             rootUI.transform.Find("Home").gameObject.SetActive(false);
+            ui_.board.SetActive(true);
         }
 
         public void Back()
         {
             rootUI.transform.Find("Home").gameObject.SetActive(true);
+            ui_.board.SetActive(false);
         }
 
         private CounterSequence applyStyle()
         {
             CounterSequence sequence = new CounterSequence(0);
 
-            // 应用层样式
-            var tLayer = rootUI.transform.Find("Home/LayerContainers/layer");
-            tLayer.gameObject.SetActive(false);
-            foreach (var layer in style_.layers)
+            // 应用主层样式
+            sequence.Dial();
+            loadTextureFromTheme(style_.mainLayer.image, (_texture) =>
             {
+                var imgLayer = rootUI.transform.Find("Home/ScrollView/Viewport/mainLayer").GetComponent<RawImage>();
+                imgLayer.texture = _texture;
+                imgLayer.SetNativeSize();
+                sequence.Tick();
+            }, () => { });
+
+            // 应用扩展层样式
+            foreach (var layer in style_.extraLayers)
+            {
+                //TODO
+                /*
                 var layerClone = GameObject.Instantiate(tLayer.gameObject, tLayer.parent);
                 sequence.Dial();
-                loadSpriteFromTheme(layer.image, (_sprite) =>
+                loadTextureFromTheme(layer.image, (_texture) =>
                 {
-                    var imgLayer = layerClone.GetComponent<Image>();
-                    imgLayer.sprite = _sprite;
+                    var imgLayer = layerClone.transform.Find("Viewport/image").GetComponent<RawImage>();
+                    imgLayer.texture = _texture;
+                    imgLayer.SetNativeSize();
                     sequence.Tick();
-                });
+                }, () => { });
                 layerClone.SetActive(true);
+                */
             }
 
             // 应用热点样式
-            loadSpriteFromTheme(style_.hotspot.image, (_sprite) =>
+            loadTextureFromTheme(style_.hotspot.image, (_texture) =>
             {
-                var img = ui_.hotspot.GetComponent<Image>();
-                img.sprite = _sprite;
+                var img = ui_.hotspot.GetComponent<RawImage>();
+                img.texture = _texture;
                 sequence.Tick();
-            });
+            }, () => { });
 
             // 应用返回样式
             var btnBack = rootUI.transform.Find("Board/btnBack");
             alignByAncor(btnBack, style_.board.backButton.anchor);
             sequence.Dial();
-            loadSpriteFromTheme(style_.board.backButton.image, (_sprite) =>
+            loadTextureFromTheme(style_.board.backButton.image, (_texture) =>
             {
-                var img = btnBack.GetComponent<Image>();
-                img.sprite = _sprite;
+                var img = btnBack.GetComponent<RawImage>();
+                img.texture = _texture;
                 sequence.Tick();
-            });
+            }, () => { });
 
             // 应用信息框面板样式
             alignByAncor(ui_.infoBox.root.transform, style_.infoBox.panel.anchor);
             sequence.Dial();
-            loadSpriteFromTheme(style_.infoBox.panel.image, (_sprite) =>
+            loadTextureFromTheme(style_.infoBox.panel.image, (_texture) =>
             {
-                var img = ui_.infoBox.root.GetComponent<Image>();
-                img.sprite = _sprite;
+                var img = ui_.infoBox.root.GetComponent<RawImage>();
+                img.texture = _texture;
                 sequence.Tick();
-            });
+            }, () => { });
 
             // 应用信息框关闭按钮样式
             alignByAncor(ui_.infoBox.closeButton.transform, style_.infoBox.closeButton.anchor);
             sequence.Dial();
-            loadSpriteFromTheme(style_.infoBox.closeButton.image, (_sprite) =>
+            loadTextureFromTheme(style_.infoBox.closeButton.image, (_texture) =>
             {
-                var img = ui_.infoBox.closeButton.GetComponent<Image>();
-                img.sprite = _sprite;
+                var img = ui_.infoBox.closeButton.GetComponent<RawImage>();
+                img.texture = _texture;
                 sequence.Tick();
-            });
+            }, () => { });
 
             // 应用信息框打开按钮样式
             alignByAncor(ui_.infoBox.openButton.transform, style_.infoBox.openButton.anchor);
             sequence.Dial();
-            loadSpriteFromTheme(style_.infoBox.openButton.image, (_sprite) =>
+            loadTextureFromTheme(style_.infoBox.openButton.image, (_texture) =>
             {
-                var img = ui_.infoBox.openButton.transform.GetComponent<Image>();
-                img.sprite = _sprite;
+                var img = ui_.infoBox.openButton.transform.GetComponent<RawImage>();
+                img.texture = _texture;
                 sequence.Tick();
-            });
+            }, () => { });
 
             return sequence;
-        }
-
-        private void publishSubject(MyConfig.Subject _subject, Dictionary<string, string> _replaces)
-        {
-            var dummyModel = (entry_ as MyEntry).getDummyModel();
-            var data = new Dictionary<string, object>();
-            foreach (var parameter in _subject.parameters)
-            {
-                if (parameter.type.Equals("string"))
-                {
-                    var strValue = parameter.value;
-                    foreach (var pair in _replaces)
-                    {
-                        strValue = strValue.Replace(pair.Key, pair.Value);
-                    }
-                    data[parameter.key] = strValue;
-                }
-                else if (parameter.type.Equals("int"))
-                    data[parameter.key] = int.Parse(parameter.value);
-                else if (parameter.type.Equals("float"))
-                    data[parameter.key] = float.Parse(parameter.value);
-                else if (parameter.type.Equals("bool"))
-                    data[parameter.key] = bool.Parse(parameter.value);
-            }
-            dummyModel.Publish(_subject.message, data);
         }
 
         private void refreshInfoBox()
@@ -342,12 +350,9 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                 return;
             }
 
-            Dictionary<string, string> replaces = new Dictionary<string, string>();
-            replaces["{{resource_uri}}"] = string.Format("{0}/_resources/{1}", activeContent_.bundle, strValue);
-            foreach (var subject in style_.hotspot.onSubjects)
-            {
-                publishSubject(subject, replaces);
-            }
+            Dictionary<string, object> variableS = new Dictionary<string, object>();
+            variableS["{{resource_uri}}"] = string.Format("{0}/_resources/{1}", activeContent_.bundle, strValue);
+            publishSubjects(style_.hotspot.onSubjects, variableS);
         }
 
         /// <summary>
@@ -355,12 +360,8 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         /// </summary>
         private void closeResource()
         {
-
-            Dictionary<string, string> replaces = new Dictionary<string, string>();
-            foreach (var subject in style_.hotspot.offSubjects)
-            {
-                publishSubject(subject, replaces);
-            }
+            Dictionary<string, object> variableS = new Dictionary<string, object>();
+            publishSubjects(style_.hotspot.offSubjects, variableS);
         }
     }
 }

@@ -16,10 +16,15 @@
     <Style name="default">
       <!-- 图层
 			  image: 位于themes/XTC_Hotspot2D路径的图片
+        horizontalAlign: 水平对齐方式，可选值为（left,center,right）
+        verticalAlign: 垂直对齐方式，可选值为（top,center,bottom）
 			-->
-      <Layers>
-        <Layer image="Layer0_default.jpg"/>
-      </Layers>
+      <MainLayer image="MainLayer_default.jpg" horizontalAlign="center" verticalAlign="center"/>
+      <ExtraLayerS>
+        <!--
+        <ExtraLayer image="Layer0_default.jpg"/>
+        -->
+      </ExtraLayerS>
       <!-- 热点
 			  image: 位于themes/XTC_Hotspot2D路径的图片
         key: 内容的键值对的键
@@ -39,7 +44,7 @@
           </Subject>
           <Subject message="/XTC/Hotspot2D/Forward">
             <Parameters>
-              <Parameter key="uid" value="XTC_Hotspot2D" type="string"/>
+              <Parameter key="uid" value="default" type="string"/>
             </Parameters>
           </Subject>
         </OnSubjects>
@@ -52,7 +57,7 @@
           </Subject>
           <Subject message="/XTC/Hotspot2D/Back">
             <Parameters>
-              <Parameter key="uid" value="XTC_Hotspot2D" type="string"/>
+              <Parameter key="uid" value="default" type="string"/>
             </Parameters>
           </Subject>
         </OffSubjects>
@@ -89,8 +94,7 @@
       style: 使用的样式名
     -->
   <Instances>
-    <!-- 此实例和Assloud中的XTC_Hotspot2D关联-->
-    <Instance uid="XTC_Hotspot2D" style="default"/>
+    <Instance uid="default" style="default" uiSlot=""/>
   </Instances>
   <!-- 预加载 -->
   <Preload>
@@ -103,7 +107,7 @@
     <Subjects>
       <Subject message="/XTC/Hotspot2D/Open">
         <Parameters>
-          <Parameter key="uid" value="XTC_Hotspot2D" type="string"/>
+          <Parameter key="uid" value="default" type="string"/>
           <Parameter key="source" value="" type="string"/>
           <Parameter key="uri" value="" type="string"/>
           <Parameter key="delay" value="0" type="float"/>

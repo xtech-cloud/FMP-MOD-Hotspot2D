@@ -10,11 +10,6 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
     /// </summary>
     public class MyEntry : MyEntryBase
     {
-        public DummyModel getDummyModel()
-        {
-            return modelDummy_;
-        }
-
     }
 }
 

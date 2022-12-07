@@ -30,6 +30,10 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         {
             [XmlAttribute("image")]
             public string image { get; set; } = "";
+            [XmlAttribute("horizontalAlign")]
+            public string horizontalAlign { get; set; } = "";
+            [XmlAttribute("verticallAlign")]
+            public string verticalAlign { get; set; } = "";
         }
 
         public class Hotspot : UiElement
@@ -52,9 +56,11 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             public string name { get; set; } = "";
             [XmlElement("Board")]
             public Board board { get; set; } = new Board();
+            [XmlElement("MainLayer")]
+            public Layer mainLayer { get; set; } = new Layer();
 
-            [XmlArray("Layers"), XmlArrayItem("Layer")]
-            public Layer[] layers { get; set; } = new Layer[0];
+            [XmlArray("ExtraLayerS"), XmlArrayItem("ExtraLayer")]
+            public Layer[] extraLayers { get; set; } = new Layer[0];
             [XmlElement("Hotspot")]
             public Hotspot hotspot { get; set; } = new Hotspot();
             [XmlElement("InfoBox")]
