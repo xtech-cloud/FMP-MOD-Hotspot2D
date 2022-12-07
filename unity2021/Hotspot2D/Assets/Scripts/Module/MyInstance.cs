@@ -239,7 +239,10 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                 imgLayer.texture = _texture;
                 imgLayer.SetNativeSize();
                 sequence.Tick();
-            }, () => { });
+            }, () =>
+            {
+                sequence.Tick();
+            });
 
             // 应用扩展层样式
             foreach (var layer in style_.extraLayers)
@@ -265,7 +268,10 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                 var img = ui_.hotspot.GetComponent<RawImage>();
                 img.texture = _texture;
                 sequence.Tick();
-            }, () => { });
+            }, () =>
+            {
+                sequence.Tick();
+            });
 
             // 应用返回样式
             var btnBack = rootUI.transform.Find("Board/btnBack");
@@ -276,7 +282,10 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                 var img = btnBack.GetComponent<RawImage>();
                 img.texture = _texture;
                 sequence.Tick();
-            }, () => { });
+            }, () =>
+            {
+                sequence.Tick();
+            });
 
             // 应用信息框面板样式
             alignByAncor(ui_.infoBox.root.transform, style_.infoBox.panel.anchor);
@@ -286,7 +295,10 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                 var img = ui_.infoBox.root.GetComponent<RawImage>();
                 img.texture = _texture;
                 sequence.Tick();
-            }, () => { });
+            }, () =>
+            {
+                sequence.Tick();
+            });
 
             // 应用信息框关闭按钮样式
             alignByAncor(ui_.infoBox.closeButton.transform, style_.infoBox.closeButton.anchor);
@@ -296,7 +308,10 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                 var img = ui_.infoBox.closeButton.GetComponent<RawImage>();
                 img.texture = _texture;
                 sequence.Tick();
-            }, () => { });
+            }, () =>
+            {
+                sequence.Tick();
+            });
 
             // 应用信息框打开按钮样式
             alignByAncor(ui_.infoBox.openButton.transform, style_.infoBox.openButton.anchor);
@@ -306,7 +321,10 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                 var img = ui_.infoBox.openButton.transform.GetComponent<RawImage>();
                 img.texture = _texture;
                 sequence.Tick();
-            }, () => { });
+            }, () =>
+            {
+                sequence.Tick();
+            });
 
             return sequence;
         }
