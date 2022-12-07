@@ -43,6 +43,8 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             /// </summary>
             [XmlAttribute("key")]
             public string key { get; set; } = "";
+            [XmlAttribute("debugFrameColor")]
+            public string debugFrameColor { get; set; } = "#00000000";
             [XmlArray("OnSubjects"), XmlArrayItem("Subject")]
             public Subject[] onSubjects { get; set; } = new Subject[0];
 

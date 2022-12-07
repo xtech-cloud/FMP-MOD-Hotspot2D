@@ -273,6 +273,11 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                 sequence.Tick();
             });
 
+            Color debugFrameColor = Color.clear;
+            if (!ColorUtility.TryParseHtmlString(style_.hotspot.debugFrameColor, out debugFrameColor))
+                debugFrameColor = Color.clear;
+            ui_.hotspot.transform.Find("debugFrame").GetComponent<Image>().color = debugFrameColor;
+
             // 应用返回样式
             var btnBack = rootUI.transform.Find("Board/btnBack");
             alignByAncor(btnBack, style_.board.backButton.anchor);

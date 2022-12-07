@@ -28,10 +28,11 @@
       <!-- 热点
 			  image: 位于themes/XTC_Hotspot2D路径的图片
         key: 内容的键值对的键
+        debugFrameColor: 用于调试的填充颜色
 			  x: 横坐标，屏幕中为0，左方为负数，右方为正
 			  y: 纵坐标，屏幕中为0，下方为负数，上方为正
 			-->
-      <Hotspot image="Hotspot_default.png" key="ImageAtlas3D">
+      <Hotspot image="Hotspot_default.png" key="ImageAtlas3D" debugFrameColor="#00000000">
         <Anchor marginH="0" marginV="0" width="144" height="144"/>
         <OnSubjects>
           <Subject message="/XTC/ImageAtlas3D/Open">
