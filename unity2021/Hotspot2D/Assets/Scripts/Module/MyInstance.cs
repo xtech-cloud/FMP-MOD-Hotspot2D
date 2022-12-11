@@ -232,17 +232,34 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             CounterSequence sequence = new CounterSequence(0);
 
             // 应用主层样式
-            sequence.Dial();
-            loadTextureFromTheme(style_.mainLayer.image, (_texture) =>
+            System.Action<string, RawImage, bool> loadTheme = (_image, _target, _setNativeSize) =>
             {
-                var imgLayer = rootUI.transform.Find("Home/ScrollView/Viewport/mainLayer").GetComponent<RawImage>();
-                imgLayer.texture = _texture;
-                imgLayer.SetNativeSize();
-                sequence.Tick();
-            }, () =>
-            {
-                sequence.Tick();
-            });
+                if (string.IsNullOrEmpty(_image))
+                    return;
+                sequence.Dial();
+                loadTextureFromTheme(_image, (_texture) =>
+                {
+                    sequence.Tick();
+                    _target.texture = _texture;
+                    if (_setNativeSize)
+                        _target.SetNativeSize();
+                }, () =>
+                {
+                    sequence.Tick();
+                });
+            };
+            // 主层图片
+            loadTheme(style_.mainLayer.image, rootUI.transform.Find("Home/ScrollView/Viewport/mainLayer").GetComponent<RawImage>(), true);
+            // 加载热点图片
+            loadTheme(style_.hotspot.image, ui_.hotspot.GetComponent<RawImage>(), false);
+            // 加载返回按钮图片
+            loadTheme(style_.board.backButton.image, rootUI.transform.Find("Board/btnBack").GetComponent<RawImage>(), false);
+            // 加载信息框面板图片
+            loadTheme(style_.infoBox.panel.image, ui_.infoBox.root.GetComponent<RawImage>(), false);
+            // 加载信息框关闭按钮图片
+            loadTheme(style_.infoBox.closeButton.image, ui_.infoBox.closeButton.GetComponent<RawImage>(), false);
+            // 加载信息框打开按钮图片
+            loadTheme(style_.infoBox.openButton.image, ui_.infoBox.openButton.GetComponent<RawImage>(), false);
 
             // 应用扩展层样式
             foreach (var layer in style_.extraLayers)
@@ -262,17 +279,6 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                 */
             }
 
-            // 应用热点样式
-            loadTextureFromTheme(style_.hotspot.image, (_texture) =>
-            {
-                var img = ui_.hotspot.GetComponent<RawImage>();
-                img.texture = _texture;
-                sequence.Tick();
-            }, () =>
-            {
-                sequence.Tick();
-            });
-
             Color debugFrameColor = Color.clear;
             if (!ColorUtility.TryParseHtmlString(style_.hotspot.debugFrameColor, out debugFrameColor))
                 debugFrameColor = Color.clear;
@@ -281,56 +287,16 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             // 应用返回样式
             var btnBack = rootUI.transform.Find("Board/btnBack");
             alignByAncor(btnBack, style_.board.backButton.anchor);
-            sequence.Dial();
-            loadTextureFromTheme(style_.board.backButton.image, (_texture) =>
-            {
-                var img = btnBack.GetComponent<RawImage>();
-                img.texture = _texture;
-                sequence.Tick();
-            }, () =>
-            {
-                sequence.Tick();
-            });
 
             // 应用信息框面板样式
             alignByAncor(ui_.infoBox.root.transform, style_.infoBox.panel.anchor);
-            sequence.Dial();
-            loadTextureFromTheme(style_.infoBox.panel.image, (_texture) =>
-            {
-                var img = ui_.infoBox.root.GetComponent<RawImage>();
-                img.texture = _texture;
-                sequence.Tick();
-            }, () =>
-            {
-                sequence.Tick();
-            });
 
             // 应用信息框关闭按钮样式
             alignByAncor(ui_.infoBox.closeButton.transform, style_.infoBox.closeButton.anchor);
-            sequence.Dial();
-            loadTextureFromTheme(style_.infoBox.closeButton.image, (_texture) =>
-            {
-                var img = ui_.infoBox.closeButton.GetComponent<RawImage>();
-                img.texture = _texture;
-                sequence.Tick();
-            }, () =>
-            {
-                sequence.Tick();
-            });
 
             // 应用信息框打开按钮样式
             alignByAncor(ui_.infoBox.openButton.transform, style_.infoBox.openButton.anchor);
-            sequence.Dial();
-            loadTextureFromTheme(style_.infoBox.openButton.image, (_texture) =>
-            {
-                var img = ui_.infoBox.openButton.transform.GetComponent<RawImage>();
-                img.texture = _texture;
-                sequence.Tick();
-            }, () =>
-            {
-                sequence.Tick();
-            });
-
+           
             return sequence;
         }
 
