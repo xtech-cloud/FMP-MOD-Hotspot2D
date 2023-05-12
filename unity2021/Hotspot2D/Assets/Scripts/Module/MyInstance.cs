@@ -139,6 +139,12 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
         public void HandleClosed()
         {
             rootUI.gameObject.SetActive(false);
+            ui_.infoBox.root.SetActive(false);
+            Back();
+            if (null != activeContent_)
+            {
+                closeResource();
+            }
         }
 
         public void applyCatalog()
@@ -176,6 +182,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                     }, () => { });
                 }
 
+                // 热点点击
                 clone.GetComponent<Button>().onClick.AddListener(() =>
                 {
                     activeContent_ = null;
@@ -198,6 +205,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
                         }
                         catch (System.Exception ex)
                         {
+                            activeContent_ = null;
                             logger_.Exception(ex);
                             return;
                         }
@@ -296,7 +304,7 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
 
             // 应用信息框打开按钮样式
             alignByAncor(ui_.infoBox.openButton.transform, style_.infoBox.openButton.anchor);
-           
+
             return sequence;
         }
 

@@ -103,5 +103,19 @@ namespace XTC.FMP.MOD.Hotspot2D.LIB.Unity
             data["uid"] = _uid;
             modelDummy_.Publish(MySubjectBase.Delete, data);
         }
+
+        public void __DebugForward(string _uid)
+        {
+            var data = new Dictionary<string, object>();
+            data["uid"] = _uid;
+            modelDummy_.Publish(MySubject.Forward, data);
+        }
+
+        public void __DebugBack(string _uid)
+        {
+            var data = new Dictionary<string, object>();
+            data["uid"] = _uid;
+            modelDummy_.Publish(MySubject.Back, data);
+        }
     }
 }
